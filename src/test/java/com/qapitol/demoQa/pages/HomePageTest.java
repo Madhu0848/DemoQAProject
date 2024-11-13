@@ -1,19 +1,19 @@
 package com.qapitol.demoQa.pages;
 
 import com.qapitol.demoQa.base.BaseClass;
-import dev.failsafe.internal.util.Durations;
+import org.apache.poi.ss.usermodel.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.Duration;
-import java.util.List;
 import java.util.Set;
 
 public class HomePageTest extends BaseClass {
@@ -198,7 +198,7 @@ public class HomePageTest extends BaseClass {
       JavascriptExecutor js1=(JavascriptExecutor) driver;
       js1.executeScript("arguments[0].click()", download);
 
-      WebElement u  ploadFILE=driver.findElement(By.xpath("//input[@id='uploadFile']"));
+      WebElement   uploadFILE=driver.findElement(By.xpath("//input[@id='uploadFile']"));
         uploadFILE.sendKeys("C:\\Users\\Qapitol QA\\Downloads");
 
     }
@@ -210,6 +210,23 @@ public class HomePageTest extends BaseClass {
        WebElement dynElement= driver.findElement(By.xpath("//*[name()='svg']/following-sibling::span[text()='Dynamic Properties']"));
        JavascriptExecutor js=(JavascriptExecutor) driver;
        js.executeScript("arguments[0].click()", dynElement);
+
+    }
+    /* Read Data From Excel */
+    @Test
+    public void readDataTest() throws IOException {
+        System.out.println("HomePage Test");
+        FileInputStream fis = new FileInputStream("C:\\DataExcel\\application.xlsx");
+        Workbook wb = WorkbookFactory.create(fis);
+        Sheet sheet = wb.getSheetAt(0);
+        Row row = sheet.getRow(0);
+        Cell cell = row.getCell(0);
+        System.out.println("Data from first cell: " + cell.toString());
+        System.out.println(sheet.getRow(0).getCell(1));
+
+
+
+
 
     }
 
