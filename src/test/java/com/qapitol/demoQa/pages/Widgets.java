@@ -18,6 +18,7 @@ import java.util.List;
 @Listeners(ExtentReportUtility.class)
 public class Widgets extends BaseClass {
 
+
     @Test
     public void Widget() throws InterruptedException {
 
@@ -26,11 +27,12 @@ public class Widgets extends BaseClass {
         js.executeScript("window.scrollBy(0,1000)");
         js.executeScript("arguments[0].click();", formText);
 
-        driver.findElement(By.xpath("//span[text()='Accordian']")).click();
+      WebElement accordian= driver.findElement(By.xpath("//span[text()='Accordian']"));
+      js.executeScript("arguments[0].click();", accordian);
 
         WebElement firstTest = driver.findElement(By.xpath("//div[text()='What is Lorem Ipsum?']"));
         js.executeScript("arguments[0].click();", firstTest);
-        firstTest.click();
+        
 
         WebElement secondText = driver.findElement(By.xpath("//div[text()='Where does it come from?']"));
         js.executeScript("arguments[0].click();", secondText);
@@ -106,41 +108,104 @@ public class Widgets extends BaseClass {
         js.executeScript("arguments[0].click();", Slider);
         js.executeScript("window.scrollBy(0,300)");
 
-        WebElement slider1 = driver.findElement(By.xpath("//div[text()='25' and @class='range-slider__tooltip__label']"));
+        WebElement slider1 = driver.findElement(By.xpath("//input[@type='range']"));
 
         Actions actions = new Actions(driver);
-        actions.clickAndHold(slider1).build().perform();
         actions.moveToElement(slider1, 56, 0).build().perform();
-        // actions.moveByOffset(45,0).build().perform();
-        // actions.moveToLocation(90,0).build().perform();
+        actions.dragAndDropBy(slider1, 50, 0).build().perform();
 
     }
-        /*Progress Bar */ //not working this
-        @Test
-        public void ProgressBar() throws InterruptedException {
-            WebElement ProgressBar = driver.findElement(By.xpath("//span[text()='Progress Bar']"));
-            JavascriptExecutor js = (JavascriptExecutor) driver;
 
-            js.executeScript("arguments[0].click();", ProgressBar);
-            js.executeScript("window.scrollBy(0,300)");
+    /*Progress Bar */ //not working this
+    @Test
+    public void ProgressBar() throws InterruptedException {
+        WebElement ProgressBar = driver.findElement(By.xpath("//span[text()='Progress Bar']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-            driver.findElement(By.xpath("//button[text()='Start']")).click();
-            Thread.sleep(3000);
+        js.executeScript("arguments[0].click();", ProgressBar);
+        js.executeScript("window.scrollBy(0,300)");
 
-            driver.findElement(By.xpath("//button[text()='Reset']")).click();
+        driver.findElement(By.xpath("//button[text()='Start']")).click();
+        Thread.sleep(3000);
 
+        driver.findElement(By.xpath("//button[text()='Reset']")).click();
 
+    }
 
+    /* Execute the Tab */
+    @Test
+    public void TabTest() throws InterruptedException {
+        WebElement Tab = driver.findElement(By.xpath("//span[text()='Tabs']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 
+        js.executeScript("arguments[0].click();", Tab);
+        js.executeScript("window.scrollBy(0,300)");
 
-
-
-
-
-
-
-
+        driver.findElement(By.xpath("//a[text()='Origin']")).click();
+        driver.findElement(By.xpath("//a[text()='Use']")).click();
+        driver.findElement(By.xpath("//nav[@role='tablist']")).click();
 
 
     }
-}
+
+    /* Tool Tip */
+    @Test
+    public void ToolTip() throws InterruptedException {
+        WebElement ToolTips = driver.findElement(By.xpath("//span[text()='Tool Tips']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].click();", ToolTips);
+        js.executeScript("window.scrollBy(0,300)");
+
+
+    }
+
+
+
+
+    /*Manu */
+    @Test
+    public void Manu() throws InterruptedException {
+        WebElement Manu = driver.findElement(By.xpath("//span[text()='Menu']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].click();", Manu);
+        js.executeScript("window.scrollBy(0,300)");
+
+    }
+
+    /* Select Manu */
+    @Test
+    public void selectManu() throws InterruptedException {
+        WebElement SelectMenu = driver.findElement(By.xpath("//span[text()='Select Menu']"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        js.executeScript("arguments[0].click();", SelectMenu);
+        js.executeScript("window.scrollBy(0,300)");
+
+        driver.findElement(By.xpath("//div[text()='Select Option']")).click();
+       WebElement SelectValue = driver.findElement(By.xpath("//div[text()='Group 1, option 2']"));
+        js.executeScript("arguments[0].click();", SelectValue);
+
+       WebElement selectone =driver.findElement(By.xpath("//div[@id=\"selectOne\"]"));
+        selectone.click();
+        // js.executeScript("arguments[0].click();", selectone);
+
+        driver.findElement(By.xpath("//div[text()=\"Mrs.\"]")).click();
+
+       WebElement singleDropDown =driver.findElement(By.xpath("//select[@id='oldSelectMenu']"));
+       Select select =new Select(singleDropDown);
+       select.selectByIndex(5);
+
+        //WebElement multipledropdown = driver.findElement(By.xpath("//div[contains(@class, 'css-1wa3eu0-placeholder')]"));
+        //js.executeScript("arguments[0].click();", multipledropdown);
+
+        Select select1 = new Select(driver.findElement(By.id("cars")));
+        List<WebElement> options = select.getOptions();
+
+        for(WebElement option: options)
+            System.out.println(option.getText());
+        }
+
+
+    }

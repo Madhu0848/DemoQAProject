@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite  thread-count ="2"  parallel ="tests" name="Suite" >
+    <test name ="TestRunner-chrome">
+    <parameter name="BROWSER" value="firefox"/>
+            <classes>
+            <class name="com.qapitol.demoQa.pages.HomePageTest"/>
+        </classes>
+    </test>
+    <test name ="TestRunner-firefox">
+        <parameter name="BROWSER" value="firefox"/>
+        <classes>
+            <class name="com.qapitol.demoQa.pages.Widgets"/>
+        </classes>
+    </test>
+</suite>
